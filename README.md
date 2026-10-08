@@ -1,5 +1,7 @@
 # Crypto Note
 
+> 🚀 **Live Demo:** [https://zerotohero11.netlify.app](https://zerotohero11.netlify.app)
+
 **Crypto Note** is a sleek, modern, client-side web application designed to help crypto traders and investors track coins, monitor market caps, calculate profits, and manage portfolio records—securely and privately on their local device.
 
 ---
