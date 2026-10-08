@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Crypto Note</title>
+  <meta name="theme-color" content="#2a2a2a" id="themeColorMeta" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Crypto Note" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="./icon-192.png" />
+  <link rel="icon" href="./icon-192.png" type="image/png" />
+  <script>
+    (function () {
+      var theme = localStorage.getItem("crypto-note-theme") || "dark";
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    html { font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif; }
+  </style>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="page-bg" aria-hidden="true"></div>
+  <div class="page-overlay" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="header-bar">
+      <button type="button" class="logo" id="headerBrand" aria-label="Crypto Note Home">
+        <img src="./icon-192.png" alt="Crypto Note" class="logo-img" width="46" height="46" />
+      </button>
+
+      <nav class="main-nav" aria-label="Navigation">
+        <button type="button" class="nav-item active" id="navHome" data-view="home">Home</button>
+        <button type="button" class="nav-item" id="navCalc" data-view="calc">Calc</button>
+        <button type="button" class="nav-item" id="navNotes" data-view="notes">Notes</button>
+        <button type="button" class="nav-item" id="navProfit" data-view="profit">Profit</button>
+        <button type="button" class="nav-item" id="navAdd" data-view="add">Add</button>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="icon-btn" id="themeToggleBtn" title="Dark / Light" aria-label="Beddel dark ama light">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke-linecap="round" />
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M21 14.5A8.5 8.5 0 1 1 9.5 3a7 7 0 0 0 11.5 11.5z" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <button type="button" class="icon-btn" id="installBtn" title="Soo deji PDF" aria-label="Soo deji PDF">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M12 3v12" stroke-linecap="round" />
+            <path d="M8 11l4 4 4-4" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M5 21h14" stroke-linecap="round" />
+          </svg>
+        </button>
+        <button type="button" class="icon-btn" id="importBtn" title="Soo geli backup" aria-label="Soo geli backup JSON">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M12 21V9" stroke-linecap="round" />
+            <path d="M8 13l4-4 4 4" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M5 3h14" stroke-linecap="round" />
+          </svg>
+        </button>
+        <input type="file" id="importFileInput" accept="application/json,.json" hidden />
+        <button type="button" class="icon-btn wallet-btn" id="openWalletBtn" title="Wallet" aria-label="Fur wallet">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <rect x="2" y="6" width="20" height="14" rx="2" />
+            <path d="M2 10h20" />
+            <circle cx="17" cy="14" r="1.2" fill="currentColor" stroke="none" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="homeView" class="view is-active hero-view" aria-label="Home">
+      <div class="hero">
+        <p class="hero-eyebrow">Crypto portfolio</p>
+        <h1 class="hero-title">Crypto Note</h1>
+        <div class="hero-ctas">
+          <button type="button" class="btn solid" id="heroCalcBtn">Calc</button>
+          <button type="button" class="btn ghost" id="heroNotesBtn">Notes</button>
+          <button type="button" class="btn ghost" id="heroAddBtn">Kudar Coin</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="calcView" class="view content-view" aria-label="Market Cap Calculator" hidden>
+      <div class="content-wrap">
+        <div class="section-head">
+          <p class="calc-badge"><span></span> Live Calc</p>
+          <h2>Market Cap</h2>
+        </div>
+
+        <div class="glass-panel calc-panel">
+          <label class="field calc-invested-field">
+            <span>Lacagta aad gelisay</span>
+            <div class="money-input">
+              <span class="money-prefix">$</span>
+              <input type="text" id="calcInvested" inputmode="decimal" enterkeyhint="next" placeholder="100 ama 1k" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" />
+              <div class="suffix-btns" role="group" aria-label="K ama M">
+                <button type="button" class="suffix-btn" data-suffix="k" data-target="calcInvested">K</button>
+                <button type="button" class="suffix-btn" data-suffix="m" data-target="calcInvested">M</button>
+              </div>
+            </div>
+          </label>
+
+          <div class="calc-mcap-group">
+            <label class="field">
+              <span>Entry Market Cap</span>
+              <div class="money-input">
+                <span class="money-prefix">$</span>
+                <input type="text" id="calcEntryMcap" inputmode="decimal" enterkeyhint="next" placeholder="50k ama 100k" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" />
+                <div class="suffix-btns" role="group" aria-label="K ama M">
+                  <button type="button" class="suffix-btn" data-suffix="k" data-target="calcEntryMcap">K</button>
+                  <button type="button" class="suffix-btn" data-suffix="m" data-target="calcEntryMcap">M</button>
+                </div>
+              </div>
+            </label>
+
+            <div class="calc-divider" aria-hidden="true">↓</div>
+
+            <label class="field">
+              <span>Exit Market Cap</span>
+              <div class="money-input">
+                <span class="money-prefix">$</span>
+                <input type="text" id="calcExitMcap" inputmode="decimal" enterkeyhint="done" placeholder="1m ama 5m" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" />
+                <div class="suffix-btns" role="group" aria-label="K ama M">
+                  <button type="button" class="suffix-btn" data-suffix="k" data-target="calcExitMcap">K</button>
+                  <button type="button" class="suffix-btn" data-suffix="m" data-target="calcExitMcap">M</button>
+                </div>
+              </div>
+            </label>
+
+            <div class="calc-clear-row">
+              <button type="button" class="chip clear" id="calcClearBtn">Clear</button>
+            </div>
+          </div>
+
+          <div class="calc-results">
+            <div class="calc-result-row">
+              <span>Multiplier</span>
+              <strong id="calcMultiplier">—</strong>
+            </div>
+            <div class="calc-result-row">
+              <span>Qiimaha ugu dambeeya</span>
+              <strong id="calcFinal">—</strong>
+            </div>
+            <div class="calc-result-row accent">
+              <span>Faa'idada / Khasaaraha</span>
+              <strong id="calcProfit">—</strong>
+            </div>
+            <div class="calc-result-row">
+              <span>ROI %</span>
+              <strong id="calcRoi">—</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="notesView" class="view content-view" aria-label="Notes-kayga" hidden>
+      <div class="content-wrap">
+        <div class="section-head">
+          <h2>Notes</h2>
+        </div>
+
+        <div class="glass-panel">
+          <div class="panel-toolbar">
+            <span id="coinCount" class="count-pill">0 coin</span>
+            <label class="search">
+              <span class="sr-only">Raadi</span>
+              <input type="search" id="searchInput" placeholder="Raadi coin..." />
+            </label>
+          </div>
+
+          <div id="coinList" class="name-list"></div>
+          <p id="emptyState" class="empty">Weli ma jiro note. Riix “Kudar Coin” si aad u bilowdo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="profitView" class="view content-view" aria-label="Profit" hidden>
+      <div class="content-wrap">
+        <div class="section-head">
+          <h2>Profit</h2>
+        </div>
+
+        <div class="glass-panel">
+          <div class="panel-toolbar">
+            <span id="profitTotalLabel" class="count-pill">Wadarta: $0.00</span>
+          </div>
+          <div id="profitList" class="profit-list"></div>
+          <p id="profitEmpty" class="empty">Weli ma jiro coin. Notes ku dar si aad faa'idada u aragto.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="detailView" class="view content-view" aria-label="Xogta coin" hidden>
+      <div class="content-wrap">
+        <button type="button" class="back-btn" id="backToNotes">← Notes</button>
+
+        <div class="section-head">
+          <h2 id="detailName">—</h2>
+          <p id="detailDate"></p>
+        </div>
+
+        <div class="glass-panel">
+            <div class="detail-grid">
+            <div class="detail-card">
+              <span>Lacagta la geliyey</span>
+              <strong id="detailInvested">$0.00</strong>
+            </div>
+            <div class="detail-card">
+              <span>Qiimaha hadda</span>
+              <strong id="detailCurrent">$0.00</strong>
+            </div>
+            <div class="detail-card">
+              <span>Market Cap gelitaanka</span>
+              <strong id="detailMcap">—</strong>
+            </div>
+            <div class="detail-card">
+              <span>Market Cap bixitaanka</span>
+              <strong id="detailExitMcap">—</strong>
+            </div>
+            <div class="detail-card wide">
+              <span>Faa'ida / Khasaare</span>
+              <strong id="detailProfit">$0.00</strong>
+            </div>
+          </div>
+
+          <div class="detail-note-box" id="detailNoteBox" hidden>
+            <span>Qoraal</span>
+            <p id="detailNote"></p>
+          </div>
+
+          <div class="hero-ctas detail-actions">
+            <button type="button" class="btn solid" id="detailEditBtn">Beddel</button>
+            <button type="button" class="btn ghost danger" id="detailDeleteBtn">Tirtir</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="walletView" class="view content-view" aria-label="Wallet" hidden>
+      <div class="content-wrap">
+        <div class="section-head">
+          <h2>Wallet</h2>
+          <p>Lacagtaada, faa'idada, iyo waxaad adiga geliso</p>
+        </div>
+
+        <div class="glass-panel wallet-panel">
+          <div class="detail-grid wallet-summary">
+            <div class="detail-card">
+              <span>Lacagta lafaha</span>
+              <strong id="walletBalance">$0.00</strong>
+            </div>
+            <div class="detail-card">
+              <span>Faa'ida / Khasaare</span>
+              <strong id="walletProfit">$0.00</strong>
+            </div>
+            <div class="detail-card">
+              <span>Coins-ka la geliyey</span>
+              <strong id="walletCoinsInvested">$0.00</strong>
+            </div>
+            <div class="detail-card">
+              <span>Qiimaha coins hadda</span>
+              <strong id="walletCoinsCurrent">$0.00</strong>
+            </div>
+          </div>
+
+          <form id="walletForm" class="wallet-form" autocomplete="off">
+            <p class="wallet-form-title">Adiga geli / cusboonaysii</p>
+
+            <div class="field-row">
+              <label class="field">
+                <span>Lacagta lafaha ($)</span>
+                <input type="number" id="walletBalanceInput" min="0" step="any" placeholder="1000" required />
+              </label>
+              <label class="field">
+                <span>Faa'ida ($)</span>
+                <input type="number" id="walletProfitInput" step="any" placeholder="250" required />
+              </label>
+            </div>
+
+            <label class="field">
+              <span>Qoraal (ikhtiyaari)</span>
+              <textarea id="walletNoteInput" rows="2" placeholder="Tusaale: cash + exchange..."></textarea>
+            </label>
+
+            <div class="hero-ctas form-actions">
+              <button type="submit" class="btn solid">Kaydi Wallet</button>
+              <button type="button" class="btn ghost" id="walletUseAutoBtn">Ka soo qaad notes</button>
+              <button type="button" class="btn ghost danger" id="walletClearBtn">Clear</button>
+            </div>
+            <p class="wallet-toast" id="walletToast" aria-live="polite">Waa la keydiyey</p>
+          </form>
+
+          <p class="wallet-note" id="walletSavedNote" hidden></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="addView" class="view content-view" aria-label="Kudar coin" hidden>
+      <div class="content-wrap">
+        <div class="section-head">
+          <h2 id="form-title">Kudar Coin</h2>
+        </div>
+
+        <div class="glass-panel">
+          <form id="coinForm" autocomplete="off">
+            <input type="hidden" id="editId" value="" />
+
+            <div class="field-row">
+              <label class="field">
+                <span>Magaca Coinka</span>
+                <input type="text" id="coinName" placeholder="BTC, SOL, PEPE" required />
+              </label>
+              <label class="field">
+                <span>Lacagta aad gelisay ($)</span>
+                <input type="number" id="invested" min="0" step="any" placeholder="100" required />
+              </label>
+            </div>
+
+            <div class="field-row">
+              <label class="field">
+                <span>Market Cap markii aad gelisay</span>
+                <input type="text" id="entryMcap" placeholder="50M, 1.2B" required />
+              </label>
+              <label class="field">
+                <span>Market Cap aad uga baxday</span>
+                <input type="text" id="exitMcap" placeholder="1M ama 5M (ikhtiyaari)" />
+              </label>
+            </div>
+
+            <label class="field">
+              <span>Qiimaha hadda ($)</span>
+              <input type="number" id="currentValue" min="0" step="any" placeholder="150" required />
+            </label>
+
+            <label class="field">
+              <span>Qoraal (ikhtiyaari)</span>
+              <textarea id="notes" rows="3" placeholder="Xusuus qoraal ah..."></textarea>
+            </label>
+
+            <div class="hero-ctas form-actions">
+              <button type="submit" class="btn solid" id="submitBtn">Kudar</button>
+              <button type="button" class="btn ghost" id="cancelEdit">Noqo</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>Crypto Note</span>
+    <span class="footer-dot" aria-hidden="true"></span>
+    <span>Private on this device</span>
+  </footer>
+
+  <script src="./app.js?v=20"></script>
+</body>
+</html>
