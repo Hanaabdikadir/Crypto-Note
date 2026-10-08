@@ -1,17 +1,47 @@
 # Crypto Note
 
-Crypto Note waa web app casri ah oo kuu oggolaanaya inaad si fudud ugu xisaabiso una kaydiso macluumaadka coins-kaaga, suuqa (market cap), iyo faa'iidadaada. Xogtaadu waxay si gaar ah (privately) ugu kaydsan tahay qalabkaaga (localStorage).
+**Crypto Note** is a sleek, modern, client-side web application designed to help crypto traders and investors track coins, monitor market caps, calculate profits, and manage portfolio records—securely and privately on their local device.
 
-## Astaamaha Ugu Waaweyn (Features)
+---
 
-- **Portfolio & Notes:** Qor magacyada coins-ka, lacagta la geliyey, entry market cap, exit market cap, qiimaha hadda, iyo faallooyinkaaga gaarka ah.
-- **Market Cap Calculator:** Toos u xisaabi multiplier-ka, qiimaha ugu dambeeya, faa'iidada/khasaaraha, iyo ROI %.
-- **Profit Tracker:** Arag liiska dhammaan coins-ka iyo wadarta faa'iidada guud.
-- **Wallet Tracker:** Maamul hantida guud iyo faa'iidadaada adigoo toos uga soo qaadan kara ama gacanta ku gelin kara.
-- **Dark & Light Mode:** Naqshad casri ah oo ku shaqaynaysa labada hab midab ee Dark iyo Light.
-- **PDF & JSON Backup:** Soo deji warbixin PDF ah ama ku keydi xogtaada JSON backup, soona geli markasta oo aad u baahato.
-- **PWA & Offline Ready:** Wuxuu u shaqeeyaa sidii app caadi ah oo offline-ka ku shaqaynaya.
+## Features
 
-## Sida loo isticmaalo
+- **Portfolio & Coin Notes:** Log your coin entries with initial investments, entry & exit market caps, current values, and custom notes.
+- **Live Market Cap Calculator:** Quickly calculate return multiplier, projected final value, profit/loss, and ROI % with support for shorthand inputs (e.g., `50k`, `1.5m`).
+- **Profit Tracker:** Automatically calculates overall returns and provides an overview of each coin's performance.
+- **Wallet Overview:** Keep track of your net cash balance, realized/unrealized gains, and total portfolio value.
+- **Dark & Light Modes:** Sleek modern interface with support for smooth dark and light themes.
+- **Privacy First (Local Storage):** All data is stored locally in your browser (`localStorage`). No servers, no tracking, and no external databases.
+- **Export & Backup:** Export your data as a clean PDF summary or save/restore complete JSON backups anytime.
+- **PWA & Offline Ready:** Fully installable as a Progressive Web App (PWA) that functions offline.
 
-Kaliya fur faylka `index.html` browser-kaaga ama ku fur live server.
+---
+
+## Tech Stack
+
+- **HTML5** – Semantic markup
+- **Vanilla CSS** – Custom responsive styling, dark/light themes, and glassmorphism UI
+- **Vanilla JavaScript** – Core logic, state management, and PDF generation
+- **Service Worker & Web App Manifest** – Offline PWA support
+
+---
+
+## Getting Started
+
+### Local Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Hanaabdikadir/Crypto-Note.git
+   cd Crypto-Note
+   ```
+
+2. **Open in browser:**
+   - Simply double-click `index.html` to open it directly in any modern web browser.
+   - Alternatively, serve it locally using any static HTTP server (e.g., Python `python -m http.server` or Node `npx serve`).
+
+---
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
